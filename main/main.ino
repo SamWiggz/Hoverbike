@@ -1,6 +1,3 @@
-//Hoverbike Arduino Code
-
-
 #define DEBUG true //display ESP8266 messages on Serial Monitor
 
 void setup() {
