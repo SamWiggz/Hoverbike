@@ -17,7 +17,7 @@ Hoverbike EE175A/B Fall 2020-Winter 2021
 <!-- Getting Started -->
 ## Getting Started
 
-# Initial Starting Guide
+### Initial Starting Guide
 1. Clone Project
   - Create new folder for this project on your computer
   - Use Gitbash/Command Prompt/Terminal and CD into your new folder
@@ -28,7 +28,7 @@ Hoverbike EE175A/B Fall 2020-Winter 2021
   - Local branch used to code/test your new changes/features
   - Test on your local branch then push to master
 
-# Push Local Changes to Main Branch
+### Push Local Changes to Main Branch
 1. Sync Master branch
   - (`git checkout main`)
   - (`git pull`)
