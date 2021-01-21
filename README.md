@@ -31,12 +31,14 @@ Push Local Changes to Main Branch
 1. Sync Master branch
   - (`git checkout main`)
   - (`git pull`)
-2. Rebase Local Branch with Master Branch
+2. Switch back to Local Branch
   - (`git checkout <branch name>`)
-  - (`git rebase origin/master`)
-3. Commit Changes from Local Branch
-  - (`git commit -m '<example change description>'`)
-4. Push to the Main Branch
+3. Add and Commit changes from Local Branch
+4. Commit Changes from Local Branch
+  - (`git commit -a`) or (`git commit --amend`)
+  - (`git commit -a`): First Time
+  - (`git commit --amend`): After First Time
+5. Push to the Main Branch
   - (`git push origin <branch name>`)
-5. Open a Pull Request
+6. Open a Pull Request
   
