@@ -32,7 +32,7 @@ Push Local Changes to Main Branch
   - (`git checkout main`)
   - (`git pull`)
 2. Rebase Local Branch with Master Branch
-  - (`git checkout -b <branch name>`)
+  - (`git checkout <branch name>`)
   - (`git rebase origin/master`)
 3. Commit Changes from Local Branch
   - (`git commit -m '<example change description>'`)
