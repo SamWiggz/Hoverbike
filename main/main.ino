@@ -1,4 +1,3 @@
-//WIFI Module Variables
 #define DEBUG true //display ESP8266 messages on Serial Monitor
 String wifiMsg; //Entire Wifi Message
 String wifiCommand; //Wifi Command Type
