@@ -1,6 +1,14 @@
-//Hoverbike
-
 #define DEBUG true //display ESP8266 messages on Serial Monitor
+String wifiMsg; //Entire Wifi Message
+String wifiCommand; //Wifi Command Type
+String wifiDataStr; //Wifi Data(String)
+
+//Ultrasonic Sensor Variables
+const int trigPin[6] = {22, 24, 26, 28, 30, 32};  
+const int echoPin[6] = {23, 25, 27, 29, 31, 33};
+float sensorOutput[6]; //bottom1, bottom2, left, right, front, rear
+float ultrasonicDuration, ultrasonicDistance;
+enum States{Init, PerformHeightAdjustment, WaitForUserInput, PerformDirectionAdjustment, PowerOff}state;
 
 void setup() {
   
@@ -15,26 +23,103 @@ void setup() {
   sendData("AT+CIPMUX=1\r\n", 1000, DEBUG); //Allow multiple connections
   sendData("AT+CIPSERVER=1,80\r\n", 1000, DEBUG); // Start web server on port 80
 
+  pinMode(trigPin[0], OUTPUT);
+  pinMode(echoPin[0], INPUT);
+  pinMode(trigPin[1], OUTPUT);
+  pinMode(echoPin[1], INPUT);
+  pinMode(trigPin[2], OUTPUT);
+  pinMode(echoPin[2], INPUT);
+  pinMode(trigPin[3], OUTPUT);
+  pinMode(echoPin[3], INPUT);
+  pinMode(trigPin[4], OUTPUT);
+  pinMode(echoPin[4], INPUT);
+  pinMode(trigPin[5], OUTPUT);
+  pinMode(echoPin[5], INPUT);
 }
 
 void loop()
 {
-  waitForData();
+    //Check Wifi Data
+//  checkForWifiData();
+//
+  //Check all 6 Ultrasonic Sensors
+//  for(int i = 0; i < 6; i++){
+//    ultrasonicSensor(trigPin[i], echoPin[i], i);
+//    sensorOutput[i] = distance; 
+//  }
+//  for(int i = 0; i < 6; i++){
+//      Serial.print("Sensor ");
+//      Serial.print(i);
+//      Serial.print(": ");
+//      Serial.println(sensorOutput[i]);
+//  }
+  switch(state) {
+     case Init  :
+        checkForWifiData();
+        if(wifiCommand == "hei"){
+          state = PerformHeightAdjustment;
+        }
+        state = Init;
+        break;
+     case PerformHeightAdjustment  :
+        if(wifiCommand == "hei"){
+          state = WaitForUserInput;
+        }
+        else if(wifiCommand == "pow"){
+          state = PowerOff;
+        }             
+        break;
+     case WaitForUserInput :
+        checkForWifiData();
+        if(wifiCommand == "hei"){
+          state = PerformHeightAdjustment;
+        }
+        else if(wifiCommand == "pos"){
+          state = PerformDirectionAdjustment;          
+        } 
+        else if(wifiCommand == "pow"){
+          state = PerformHeightAdjustment;             
+        }
+        break;
+     case PerformDirectionAdjustment  :
+        state = WaitForUserInput;
+        break;
+     case PowerOff :
+        checkForWifiData();
+        if(wifiCommand == "pow" && wifiDataStr == "ON"){
+          state = Init;
+        }
+        break;
+     default :
+        state = Init;
+        break;
+  }
+}
+
+//Function used to check Ultrasonic Sensor height
+void checkUltrasonicSensor(int trigPin, int echoPin, int sensorNumber){
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  ultrasonicDuration = pulseIn(echoPin, HIGH);
+  ultrasonicDistance = (ultrasonicDuration*.0343)/2;
 }
 
 //Function used to listen for WIFI data
-void waitForData(){
+void checkForWifiData(){
     if (Serial1.available())  //Check if there is data available on ESP8266
   {
     if (Serial1.find("+IPD,")) //If there is Data
     {
-      String msg;
       Serial1.find("?"); //Run cursor until command is found
-      msg = Serial1.readStringUntil(' '); //Read the message
-      String command = msg.substring(0, 3); //First three letters indicate commandd type: "hei/pos/pow" = height/position/power
-      String valueStr = msg.substring(4);   //Next characters are Data
+      wifiMsg = Serial1.readStringUntil(' '); //Read the message
+      wifiCommand = wifiMsg.substring(0, 3); //First three letters indicate commandd type: "hei/pos/pow" = height/position/power
+      wifiDataStr = wifiMsg.substring(4);   //Next characters are Data(String)
       if (DEBUG) {
-        Serial.println(msg);
+        Serial.println(wifiMsg);
       }
     }
   }
