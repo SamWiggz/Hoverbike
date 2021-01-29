@@ -24,7 +24,7 @@ Hoverbike EE175A/B Fall 2020-Winter 2021
   - (`git clone https://github.com/SamWiggz/Hoverbike.git`)
 2. Create your Local Branch 
   - (`git checkout -b <branch name>`)
-  - "<branch name>": choose a name for your local branch
+  - "branch name": choose a name for your local branch
   - Local branch used to code/test your new changes/features
   - Test on your local branch then push to master
 
