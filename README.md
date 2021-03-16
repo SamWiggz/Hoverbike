@@ -46,9 +46,9 @@ Hoverbike EE175A/B Fall 2020-Winter 2021
   
 ## MEGA Pinout
 - WIFI: 18-19
-- Ultrasonic Sensors: 22-33
-- Brushless Motor 1:
-- Brushless Motor 2:
-- Servo Motor 1:
-- Servo Motor 2:
+- Ultrasonic Sensors: 32-33
+- Brushless Motor 1 (ESC1): 2
+- Brushless Motor 2 (ESC2): 3
+- Servo Motor 1: 4
+- Servo Motor 2: 5
 
