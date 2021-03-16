@@ -37,7 +37,7 @@ document.addEventListener("keypress", function onKeypress(e2) {
     }
     if((e2.charCode == 119) || (e2.charCode == 97) || (e2.charCode == 115) || (e2.charCode == 100)){
     	console.log(String.fromCharCode(e2.charCode));
-    	IP = "http://192.168.1.83:80";
+    	IP = "http://192.168.1.16:80";
 		$.get( IP, { "dir": String.fromCharCode(e2.charCode) });
 		{Connection: close};
     }

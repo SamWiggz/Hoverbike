@@ -5,7 +5,7 @@ function changeColor(power) {
         property.style.backgroundColor = "#4679BD"
         count = 1;   
         console.log("ON")
-        IP = "http://192.168.1.83:80";
+        IP = "http://192.168.1.16:80";
         $.get( IP, { "pow": "ON" })  ;
         {Connection: close};     
     }
@@ -13,7 +13,7 @@ function changeColor(power) {
         property.style.backgroundColor = "#9cadab"
         count = 0;
         console.log("OFF")
-        IP = "http://192.168.1.83:80";
+        IP = "http://192.168.1.16:80";
         $.get( IP, { "pow": "OFF" })  ;
         {Connection: close};
     }
